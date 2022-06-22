@@ -1,0 +1,16 @@
+.container {
+  background: hsl(209, 23%, 22%);
+}
+
+.content {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 20px 30px;
+}
+
+.content h1 {
+  font-size: 1.8rem;
+  line-height: 1;
+  color: #fff;
+  cursor: pointer;
+}
