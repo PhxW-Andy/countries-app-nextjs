@@ -1,44 +1,45 @@
 import styles from '../styles/Country.module.css'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 const country = ({ data }) => {
+  const router = useRouter()
+
   return (
     <>
+      <div className={styles.btn_back}>
+        <button onClick={() => router.push('/')}>Back to overview</button>
+      </div>
       {data.map((item, index) => (
         <div key={index} className={styles.container}>
           <div className={styles.image}>
-            <Image
-              src={item.flags.svg}
-              layout="responsive"
-              width={720}
-              height={720 / (16 / 9)}
-            />
+            <img src={item.flags.svg} alt={item.name.common} />
           </div>
           <div className={styles.content}>
             <h1>{item.name.common}</h1>
             <ul className={styles.list}>
               <li>
-                <strong>Population:</strong>
+                <strong>Population: </strong>
                 {item.population.toLocaleString() ?? '-'}
               </li>
               <li>
-                <strong>Top Level Domain:</strong>
+                <strong>Top Level Domain: </strong>
                 {item.tld.map((item) => (item ? item : '-')).join(', ')}
               </li>
               <li>
-                <strong>Region:</strong>
+                <strong>Region: </strong>
                 {item.region ?? '-'}
               </li>
               <li>
-                <strong>Subregion:</strong>
+                <strong>Subregion: </strong>
                 {item.subregion ?? '-'}
               </li>
               <li>
-                <strong>Capital:</strong>
+                <strong>Capital: </strong>
                 {item.capital ?? '-'}
               </li>
               <li>
-                <strong>Currencies:</strong>
+                <strong>Currencies: </strong>
                 {item.currencies
                   ? Object.keys(item.currencies)
                       .map((value) => item.currencies[value].name)
@@ -46,7 +47,7 @@ const country = ({ data }) => {
                   : '-'}
               </li>
               <li>
-                <strong>Languages:</strong>
+                <strong>Languages: </strong>
                 {item.languages
                   ? Object.keys(item.languages)
                       .map((lang) => item.languages[lang])
