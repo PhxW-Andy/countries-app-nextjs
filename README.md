@@ -3,6 +3,8 @@ This is a simple country app build in nextjs using the country API (https://rest
 - Filter by name and region
 - Detailpage of each country with further informations
 
+Preview: https://c0untries-nextjs.vercel.app/
+
 ## Getting Started
 
 Install all dependencies:
