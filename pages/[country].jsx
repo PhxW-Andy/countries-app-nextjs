@@ -19,35 +19,39 @@ const country = ({ data }) => {
             <ul className={styles.list}>
               <li>
                 <strong>Population:</strong>
-                {item.population.toLocaleString()}
+                {item.population.toLocaleString() ?? '-'}
               </li>
               <li>
                 <strong>Top Level Domain:</strong>
-                {item.tld.map((item) => item).join(', ')}
+                {item.tld.map((item) => (item ? item : '-')).join(', ')}
               </li>
               <li>
                 <strong>Region:</strong>
-                {item.region}
+                {item.region ?? '-'}
               </li>
               <li>
                 <strong>Subregion:</strong>
-                {item.subregion}
+                {item.subregion ?? '-'}
               </li>
               <li>
                 <strong>Capital:</strong>
-                {item.capital}
+                {item.capital ?? '-'}
               </li>
               <li>
                 <strong>Currencies:</strong>
-                {Object.keys(item.currencies)
-                  .map((value) => item.currencies[value].name)
-                  .join(', ')}
+                {item.currencies
+                  ? Object.keys(item.currencies)
+                      .map((value) => item.currencies[value].name)
+                      .join(', ')
+                  : '-'}
               </li>
               <li>
                 <strong>Languages:</strong>
-                {Object.keys(item.languages)
-                  .map((lang) => item.languages[lang])
-                  .join(', ')}
+                {item.languages
+                  ? Object.keys(item.languages)
+                      .map((lang) => item.languages[lang])
+                      .join(', ')
+                  : '-'}
               </li>
             </ul>
           </div>

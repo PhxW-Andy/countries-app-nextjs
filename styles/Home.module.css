@@ -3,9 +3,16 @@
   padding: 0 30px;
   margin: 50px auto;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 80px;
   position: relative;
+}
+
+@media (max-width: 700px) {
+  .grid {
+    gap: 40px;
+    padding: 0 20px;
+  }
 }
 
 .card {
@@ -21,7 +28,7 @@
 
 .img__wrapper {
   position: relative;
-  height: 160px;
+  height: 180px;
   overflow: hidden;
 }
 
@@ -45,4 +52,49 @@
 
 .content ul li strong {
   margin-right: 0.3rem;
+}
+
+/*****Filter*****/
+
+.filter {
+  max-width: 1500px;
+  padding: 30px;
+  margin: 50px auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  background: hsl(207, 26%, 17%);
+  z-index: 1000;
+}
+
+.filter input {
+  height: 40px;
+  width: 350px;
+  border: none;
+  padding: 5px 10px;
+  font-size: 16px;
+  line-height: 1;
+  border-radius: 3px;
+  outline: none;
+}
+
+@media (max-width: 700px) {
+  .filter {
+    flex-direction: column;
+    align-items: stretch;
+    margin: 20px auto;
+    padding: 20px;
+  }
+  .filter input {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}
+
+.filter input:focus,
+.filter input:active {
+  border-color: #2684ff;
+  box-shadow: 0 0 1px #2684ff;
 }
