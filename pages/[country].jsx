@@ -1,14 +1,14 @@
 import styles from '../styles/Country.module.css'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 const country = ({ data }) => {
-  const router = useRouter()
-
   return (
     <>
       <div className={styles.btn_back}>
-        <button onClick={() => router.push('/')}>Back to overview</button>
+        <Link href={'/'}>
+          <button>Back to overview</button>
+        </Link>
       </div>
       {data.map((item, index) => (
         <div key={index} className={styles.container}>
