@@ -24,7 +24,9 @@ const country = ({ data }) => {
               </li>
               <li>
                 <strong>Top Level Domain: </strong>
-                {item.tld.map((item) => (item ? item : '-')).join(', ')}
+                {item.tld
+                  ? item.tld.map((item) => (item ? item : '-')).join(', ')
+                  : '-'}
               </li>
               <li>
                 <strong>Region: </strong>
