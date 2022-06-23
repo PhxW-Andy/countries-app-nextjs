@@ -1,64 +1,14 @@
-import styles from '../styles/Country.module.css'
 import Image from 'next/image'
-import Link from 'next/link'
+
+import ButtonBack from '../components/Country/ButtonBack'
+import Details from '../components/Country/Details'
 
 const country = ({ data }) => {
   return (
     <>
-      <div className={styles.btn_back}>
-        <Link href={'/'}>
-          <button>Back to overview</button>
-        </Link>
-      </div>
+      <ButtonBack />
       {data.map((item, index) => (
-        <div key={index} className={styles.container}>
-          <div className={styles.image}>
-            <img src={item.flags.svg} alt={item.name.common} />
-          </div>
-          <div className={styles.content}>
-            <h1>{item.name.common}</h1>
-            <ul className={styles.list}>
-              <li>
-                <strong>Population: </strong>
-                {item.population.toLocaleString() ?? '-'}
-              </li>
-              <li>
-                <strong>Top Level Domain: </strong>
-                {item.tld
-                  ? item.tld.map((item) => (item ? item : '-')).join(', ')
-                  : '-'}
-              </li>
-              <li>
-                <strong>Region: </strong>
-                {item.region ?? '-'}
-              </li>
-              <li>
-                <strong>Subregion: </strong>
-                {item.subregion ?? '-'}
-              </li>
-              <li>
-                <strong>Capital: </strong>
-                {item.capital ?? '-'}
-              </li>
-              <li>
-                <strong>Currencies: </strong>
-                {item.currencies
-                  ? Object.keys(item.currencies)
-                      .map((value) => item.currencies[value].name)
-                      .join(', ')
-                  : '-'}
-              </li>
-              <li>
-                <strong>Languages: </strong>
-                {item.languages
-                  ? Object.keys(item.languages)
-                      .map((lang) => item.languages[lang])
-                      .join(', ')
-                  : '-'}
-              </li>
-            </ul>
-          </div>
-        </div>
+        <Details key={index} item={item} />
       ))}
     </>
   )

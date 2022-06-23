@@ -1,49 +1,22 @@
 import { useState } from 'react'
-import { useQuery, useQueryClient } from 'react-query'
-import Select from 'react-select'
+import { useQuery } from 'react-query'
 import Head from 'next/head'
-import Image from 'next/image'
-import Link from 'next/link'
 import styles from '../styles/Home.module.css'
+
+////// Import own components
 import Loader from '../components/Loader'
+import Filter from '../components/Home/Filter'
+import Card from '../components/Home/Card'
 
-/////// Get filtered data with react-query
-const fetchFilteredCountries = async ({ queryKey }) => {
-  const [_key, { country, region }] = queryKey
-
-  if (country) {
-    const res = await fetch(`https://restcountries.com/v3.1/all`)
-    const data = await res.json()
-
-    if (region) {
-      return data.filter(
-        (c) =>
-          c.name.common.toLowerCase().includes(`${country}`) &&
-          c.region == `${region}`,
-      )
-    }
-    return data.filter((c) =>
-      c.name.common.toLowerCase().includes(`${country}`),
-    )
-  }
-
-  if (region) {
-    const res = await fetch(`https://restcountries.com/v3.1/all`)
-    const data = await res.json()
-
-    return data.filter((r) => r.region == `${region}`)
-  }
-
-  const res = await fetch(`https://restcountries.com/v3.1/all`)
-  return res.json()
-}
+///// Import utils
+import { fetchFilteredCountries } from '../utils/fetchFilteredCountries'
 
 export default function Home({ countries, regions }) {
-  // const queryClient = useQueryClient()
-
+  //set states for filter -> country, region
   const [country, setCountry] = useState('')
   const [region, setRegion] = useState(null)
 
+  //caching and fetching filtered data
   const { data, status, isFetching } = useQuery(
     ['countries', { country, region }],
     fetchFilteredCountries,
@@ -55,63 +28,16 @@ export default function Home({ countries, regions }) {
   return (
     <>
       <Head>
-        <title>Country App</title>
+        <title>Countries App</title>
         <meta name="description" content="country app,react,nextjs,api" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className={styles.filter}>
-        <div>
-          <input
-            type="search"
-            name="country"
-            placeholder="Search for country..."
-            onChange={(e) => setCountry(e.target.value.toLowerCase())}
-          />
-        </div>
-        <div>
-          <Select
-            getOptionLabel={(option) => option.region}
-            getOptionValue={(option) => option.region}
-            options={regions}
-            isClearable={true}
-            placeholder="Filter by region.."
-            onChange={(value) => setRegion(value ? value.region : null)}
-          />
-        </div>
-      </div>
+      <Filter regions={regions} setRegion={setRegion} setCountry={setCountry} />
       <div className={styles.grid}>
         {(isFetching || status === 'loading') && <Loader />}
         {status === 'success' &&
           !isFetching &&
-          data.map((item, index) => (
-            <Link
-              key={index}
-              href={`/${encodeURIComponent(item.name.common.toLowerCase())}`}
-            >
-              <div className={styles.card}>
-                <div className={styles.img__wrapper}>
-                  <Image src={item.flags.svg} layout="fill" objectFit="cover" />
-                </div>
-                <div className={styles.content}>
-                  <h4>{item.name.common}</h4>
-                  <ul>
-                    <li>
-                      <strong>Population:</strong>
-                      {item.population.toLocaleString() ?? '-'}
-                    </li>
-                    <li>
-                      <strong>Region:</strong>
-                      {item.region ?? '-'}
-                    </li>
-                    <li>
-                      <strong>Capital:</strong>
-                      {item.capital ?? '-'}
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </Link>
-          ))}
+          data.map((item, index) => <Card key={index} item={item} />)}
       </div>
     </>
   )

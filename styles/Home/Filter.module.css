@@ -1,0 +1,44 @@
+/*****Filter*****/
+
+.filter {
+  max-width: 1500px;
+  padding: 30px;
+  margin: 50px auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  background: hsl(207, 26%, 17%);
+  z-index: 1000;
+}
+
+.filter input {
+  height: 40px;
+  width: 350px;
+  border: none;
+  padding: 5px 10px;
+  font-size: 16px;
+  line-height: 1;
+  border-radius: 3px;
+  outline: none;
+}
+
+@media (max-width: 700px) {
+  .filter {
+    flex-direction: column;
+    align-items: stretch;
+    margin: 20px auto;
+    padding: 20px;
+  }
+  .filter input {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}
+
+.filter input:focus,
+.filter input:active {
+  border-color: #2684ff;
+  box-shadow: 0 0 1px #2684ff;
+}
